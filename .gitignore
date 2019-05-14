@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Cmake build path 
+build
+
+# vscode data
+.vscode
