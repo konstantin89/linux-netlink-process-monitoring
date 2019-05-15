@@ -8,7 +8,7 @@ class ProcessEvent
 public:
 
     struct proc_event eventData;
-    std::chrono::microseconds arrivalTime;
+    uint64_t arrivalTime;
 
 private:
 

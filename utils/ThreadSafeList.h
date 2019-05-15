@@ -1,3 +1,4 @@
+#pragma once
 
 #include <list>
 #include <mutex>
@@ -25,16 +26,16 @@ public:
 
     ThreadSafeList(const ThreadSafeList& aOther)
     {
-        std::lock_guard<std::mutex> lk(aOther.mMut);
-        std::lock_guard<std::mutex> lk(mMut);
+        std::lock_guard<std::mutex> lOtherLock(aOther.mMut);
+        std::lock_guard<std::mutex> lThisLock(mMut);
 
         mDataList = aOther;
     }
 
     ThreadSafeList& operator=(const ThreadSafeList& aOther)
     {
-        std::lock_guard<std::mutex> lk(aOther.mMut);
-        std::lock_guard<std::mutex> lk(mMut);
+        std::lock_guard<std::mutex> lOtherLock(aOther.mMut);
+        std::lock_guard<std::mutex> lThisLock(mMut);
 
         if (this != &aOther) {
             mDataList = aOther;
@@ -45,8 +46,8 @@ public:
 
     ThreadSafeList(ThreadSafeList&& aOther)
     {
-        std::lock_guard<std::mutex> lk(aOther.mMut);
-        std::lock_guard<std::mutex> lk(mMut);
+        std::lock_guard<std::mutex> lOtherLock(aOther.mMut);
+        std::lock_guard<std::mutex> lThisLock(mMut);
 
         mDataList.swap(aOther.mDataList);
     }

@@ -6,7 +6,7 @@
 struct EventCallbackData
 {
 
-    using EventCallback = std::function<void(ProcessEvent)>;
+    using EventCallback = std::function<void(ProcessEvent, void*)>;
 
     EventCallback callback;
     void* context;

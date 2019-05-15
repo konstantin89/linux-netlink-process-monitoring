@@ -13,4 +13,10 @@ endif()
 
 add_executable(
     monitor 
+    ProcessMonitor.cpp
     main.cpp)
+
+TARGET_LINK_LIBRARIES(
+    monitor
+    pthread
+)
