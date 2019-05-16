@@ -7,6 +7,7 @@
 #include "utils/ThreadSafeList.h"
 #include "ProcessEvent.h"
 #include "EventCallbackData.h"
+#include "IdGenerator.h"
 
 #define INVALID_SOCKET -1
 #define SUCCESS_CODE 0
@@ -16,6 +17,8 @@ class ProcessMonitor
 {
 public:
 
+    using EventCallback = EventCallbackData::EventCallback;
+
     ProcessMonitor();
     ~ProcessMonitor();
 
@@ -24,9 +27,9 @@ public:
     /**
      * @returns - Callback ID.
      */
-    int AddCallback(EventCallbackData aEventCallback);
+    uint64_t AddCallback(EventCallback aEventCallback, void* context);
 
-    int RemoveCallback(int aCallbackId);
+    int RemoveCallback(uint64_t aCallbackId);
 
     int Start();
 
@@ -60,6 +63,8 @@ private:
     std::thread mEventProducerThread; 
 
     std::thread mCallbackRunnerThread;
+
+    IdGenerator mCallbackIdGenerator;
 
 private:
 

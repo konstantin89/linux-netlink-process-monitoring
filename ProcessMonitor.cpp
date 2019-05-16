@@ -63,7 +63,17 @@ int ProcessMonitor::Stop()
     return SUCCESS_CODE;
 }
 
+uint64_t ProcessMonitor::AddCallback(EventCallback aEventCallback, void* context)
+{
+    auto lCallbackID = mCallbackIdGenerator.GenerateId();
+    mEventCallbacks.emplace_back(aEventCallback, context, lCallbackID);
+    return lCallbackID;
+}
 
+int ProcessMonitor::RemoveCallback(uint64_t aCallbackId)
+{
+
+}
 
 int ProcessMonitor::connectToNetlinkSocket()
 {
@@ -173,8 +183,6 @@ void ProcessMonitor::netlinkClient(ProcessMonitor* aProcessMonitor)
         
         rc = recv(aProcessMonitor->mNetlinkSock, &nlcn_msg, sizeof(nlcn_msg), 0);
 
-        auto lEventArrivalTime = std::chrono::system_clock::now();
-
         if (rc == 0) {
             /* shutdown? */
             return;
@@ -185,7 +193,6 @@ void ProcessMonitor::netlinkClient(ProcessMonitor* aProcessMonitor)
         }
 
         ProcessEvent lProcEvent;
-        lProcEvent.arrivalTime = lEventArrivalTime.time_since_epoch().count(); 
         lProcEvent.eventData = nlcn_msg.proc_ev;
 
         aProcessMonitor->mProcEventsList.PushBack(lProcEvent);

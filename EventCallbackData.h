@@ -5,10 +5,21 @@
 
 struct EventCallbackData
 {
-
     using EventCallback = std::function<void(ProcessEvent, void*)>;
+
+    EventCallbackData(EventCallback aCallback, void* aContext, uint64_t aId)
+    {
+        callback = aCallback;
+        context = aContext;
+        id = aId;
+    }
+
+    ~EventCallbackData()
+    {
+        /* EMPTY */
+    }
 
     EventCallback callback;
     void* context;
-    int id;
+    uint64_t id;
 };

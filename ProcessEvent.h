@@ -1,6 +1,5 @@
 #pragma once
 
-#include <chrono>
 #include <linux/cn_proc.h>
 
 class ProcessEvent
@@ -8,8 +7,10 @@ class ProcessEvent
 public:
 
     struct proc_event eventData;
-    uint64_t arrivalTime;
-
-private:
+   
+   uint64_t GetTimeStamp()
+   {
+       return eventData.timestamp_ns;
+   }
 
 };
