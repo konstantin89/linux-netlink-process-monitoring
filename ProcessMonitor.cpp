@@ -66,13 +66,16 @@ int ProcessMonitor::Stop()
 uint64_t ProcessMonitor::AddCallback(EventCallback aEventCallback, void* context)
 {
     auto lCallbackID = mCallbackIdGenerator.GenerateId();
-    mEventCallbacks.emplace_back(aEventCallback, context, lCallbackID);
+    mEventCallbacks.EmplaceBack(aEventCallback, context, lCallbackID);
     return lCallbackID;
 }
 
 int ProcessMonitor::RemoveCallback(uint64_t aCallbackId)
 {
-
+    mEventCallbacks.RemoveIf([aCallbackId](EventCallbackData aCallbackData) 
+        {
+            return aCallbackData.id == aCallbackId;
+        });
 }
 
 int ProcessMonitor::connectToNetlinkSocket()
@@ -214,10 +217,15 @@ void ProcessMonitor::callbackRunner(ProcessMonitor* aProcessMonitor)
 
         std::cout << "Poped event" << std::endl;
 
-        for(auto callbackData : aProcessMonitor->mEventCallbacks)
+        /*for(auto callbackData : aProcessMonitor->mEventCallbacks)
         {
             callbackData.callback(lProcEvent, callbackData.context);
-        }
+        }*/
+
+        aProcessMonitor->mEventCallbacks.ForEach([lProcEvent](EventCallbackData callbackData)
+            {
+                callbackData.callback(lProcEvent, callbackData.context);
+            });
        
     }
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <vector>
 #include <functional>
 #include <thread>
 
@@ -58,7 +57,7 @@ private:
 
     ThreadSafeList<ProcessEvent> mProcEventsList;
 
-    std::vector<EventCallbackData> mEventCallbacks;
+    ThreadSafeList<EventCallbackData> mEventCallbacks;
 
     std::thread mEventProducerThread; 
 

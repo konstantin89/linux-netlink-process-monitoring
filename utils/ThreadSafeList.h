@@ -60,6 +60,15 @@ public:
         mCond.notify_one();
     }
 
+    template <class... Args>
+    void EmplaceBack(Args&&... args)
+    {
+        std::lock_guard<std::mutex> lk(mMut);
+
+        mDataList.emplace_back(std::forward<Args>(args)...);
+
+    }
+
     void WaitAndPopFront(T& returnedData)
     {
         std::unique_lock<std::mutex> lk(mMut);
@@ -101,4 +110,22 @@ public:
         mDataList.push(zeroToPush);
         mCond.notify_all();
     }
+
+    void ForEach(std::function<void(T)> aFunc)
+    {
+        std::lock_guard<std::mutex> lk(mMut);
+
+        for(T lElement : mDataList)
+        {
+            aFunc(lElement);
+        }
+    }
+
+    void RemoveIf(std::function<bool(T)> aPeredicat)
+    {
+        std::lock_guard<std::mutex> lk(mMut);
+
+        mDataList.remove_if(aPeredicat);
+    }
+
 };
