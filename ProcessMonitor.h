@@ -28,7 +28,7 @@ public:
      */
     uint64_t AddCallback(EventCallback aEventCallback, void* context);
 
-    int RemoveCallback(uint64_t aCallbackId);
+    void RemoveCallback(uint64_t aCallbackId);
 
     int Start();
 

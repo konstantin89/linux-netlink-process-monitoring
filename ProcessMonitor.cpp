@@ -70,12 +70,13 @@ uint64_t ProcessMonitor::AddCallback(EventCallback aEventCallback, void* context
     return lCallbackID;
 }
 
-int ProcessMonitor::RemoveCallback(uint64_t aCallbackId)
+void ProcessMonitor::RemoveCallback(uint64_t aCallbackId)
 {
     mEventCallbacks.RemoveIf([aCallbackId](EventCallbackData aCallbackData) 
         {
             return aCallbackData.id == aCallbackId;
         });
+
 }
 
 int ProcessMonitor::connectToNetlinkSocket()
