@@ -169,8 +169,6 @@ bool ProcessMonitor::terminationCommandReceived()
     return mGotTermCommand;
 }
 
-#include <iostream>
-
 void ProcessMonitor::netlinkClient(ProcessMonitor* aProcessMonitor)
 {
 
@@ -201,10 +199,8 @@ void ProcessMonitor::netlinkClient(ProcessMonitor* aProcessMonitor)
 
         aProcessMonitor->mProcEventsList.PushBack(lProcEvent);
 
-        std::cout << "Pushed Event" << std::endl;
     }
 
-    std::cout << "[ ] Netlink client thread is terminating" << std::endl;
  }
 
 void ProcessMonitor::callbackRunner(ProcessMonitor* aProcessMonitor)
@@ -216,21 +212,11 @@ void ProcessMonitor::callbackRunner(ProcessMonitor* aProcessMonitor)
         
         aProcessMonitor->mProcEventsList.WaitAndPopFront(lProcEvent);
 
-        std::cout << "Poped event" << std::endl;
-
-        /*for(auto callbackData : aProcessMonitor->mEventCallbacks)
-        {
-            callbackData.callback(lProcEvent, callbackData.context);
-        }*/
-
         aProcessMonitor->mEventCallbacks.ForEach([lProcEvent](EventCallbackData callbackData)
             {
                 callbackData.callback(lProcEvent, callbackData.context);
             });
-       
     }
-
-    std::cout << "[ ] callbackRunner thread is terminating" << std::endl;
  }
 
  
