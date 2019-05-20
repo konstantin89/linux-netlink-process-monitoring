@@ -2,7 +2,7 @@
 
 ## Brief
 Linux process monitor implemented using [Netlink](http://man7.org/linux/man-pages/man7/netlink.7.html) mechanism.</br> 
-This monitor allows gegistration of callbacks on Linux process events (exec, forc etc.).</br> 
+This monitor allows registration of callbacks on Linux process events (exec, forc etc.).</br> 
 
 
 ## Permissions
@@ -35,3 +35,7 @@ Static library containig all process monitoring functionality. </br>
 Executable that uses lib_process_monitor to log process events. </br>
 This executable registers logger callback to the process events monitor</br>
 and prints events to stdout.
+
+### TODOs
+
+* Callback context should be released when callback is deleted. It should be shared_ptr
