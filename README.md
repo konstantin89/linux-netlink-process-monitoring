@@ -36,6 +36,6 @@ Executable that uses lib_process_monitor to log process events. </br>
 This executable registers logger callback to the process events monitor</br>
 and prints events to stdout.
 
-### TODOs
+## TODOs
 
-* Callback context should be released when callback is deleted. It should be shared_ptr
+* Callback context should be shared_ptr, and be released when callback is deleted.
