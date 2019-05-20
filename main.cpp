@@ -55,7 +55,7 @@ void logCallbackExample(ProcessEvent aEvent, void* aContext)
                         aEvent.eventData.event_data.exit.exit_code,
                         aEvent.GetTimeStamp());
                 break;
-                
+
             default:
                 //printf("Not handled event \n");
                 break;
@@ -71,13 +71,13 @@ int main()
     if(lProcMon.Connect() != SUCCESS_CODE)
     {
         std::cout << "[X] ProcessMonitor::Connect failed (make sure to use sudo)" << std::endl;
-        return 1;
+        return EXIT_FAILURE;
     }
 
     if(lProcMon.Start() != SUCCESS_CODE)
     {
         std::cout << "[X] ProcessMonitor::Start failed" << std::endl;
-        return 1;
+        return EXIT_FAILURE;
     }
 
     std::this_thread::sleep_for(std::chrono::seconds(10));
@@ -87,7 +87,8 @@ int main()
     if(lProcMon.Stop() != SUCCESS_CODE)
     {
         std::cout << "[X] ProcessMonitor::Stop failed" << std::endl;
-        return 1;
+        return EXIT_FAILURE;;
     }
 
+    return EXIT_SUCCESS;
 }

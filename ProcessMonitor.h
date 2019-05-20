@@ -9,8 +9,8 @@
 #include "IdGenerator.h"
 
 #define INVALID_SOCKET -1
-#define SUCCESS_CODE 0
-#define ERROR_CODE -1
+#define SUCCESS_CODE EXIT_SUCCESS
+#define ERROR_CODE EXIT_FAILURE
 
 class ProcessMonitor
 {
@@ -21,17 +21,50 @@ public:
     ProcessMonitor();
     ~ProcessMonitor();
 
+    /**
+     * @brief: Establish netlink connection. Must be called before Start.
+     * 
+     * @param: void.
+     * 
+     * @returns: SUCCESS_CODE, ERROR_CODE.
+     */
     int Connect();
 
     /**
-     * @returns - Callback ID.
+     * @brief: Add callback that will be called on each process event.
+     * 
+     * @param: aEventCallback - function that will be called.
+     * @param: aContext - Context that aEventCallback will be able to access.
+     * 
+     * @returns: Callback ID. This ID can be used to remove this callback.
      */
-    uint64_t AddCallback(EventCallback aEventCallback, void* context);
+    uint64_t AddCallback(EventCallback aEventCallback, void* aContext);
 
+    /**
+     * @brief: Remove previously registered callback.
+     * 
+     * @param: aCallbackId - Callback ID returned by AddCallback method.
+     * 
+     * @returns: void
+     */
     void RemoveCallback(uint64_t aCallbackId);
 
+    /**
+     * @brief: Start process events monitoring. Must be called after Connect.
+     * 
+     * @param: void.
+     * 
+     * @returns: SUCCESS_CODE, ERROR_CODE
+     */
     int Start();
 
+    /** 
+     * @brief: Stops process event monitoring.
+     * 
+     * @param: void.
+     * 
+     * @returns: SUCCESS_CODE, ERROR_CODE
+     */
     int Stop();
 
 

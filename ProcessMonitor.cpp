@@ -63,10 +63,10 @@ int ProcessMonitor::Stop()
     return SUCCESS_CODE;
 }
 
-uint64_t ProcessMonitor::AddCallback(EventCallback aEventCallback, void* context)
+uint64_t ProcessMonitor::AddCallback(EventCallback aEventCallback, void* aContext)
 {
     auto lCallbackID = mCallbackIdGenerator.GenerateId();
-    mEventCallbacks.EmplaceBack(aEventCallback, context, lCallbackID);
+    mEventCallbacks.EmplaceBack(aEventCallback, aContext, lCallbackID);
     return lCallbackID;
 }
 
