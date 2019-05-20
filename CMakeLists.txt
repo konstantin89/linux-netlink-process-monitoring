@@ -19,7 +19,7 @@ add_library(
 
 add_executable(
     monitor_example
-    ${SOURCES_DIR}/main.cpp)
+    ${SOURCES_DIR}/MonitorExampleMain.cpp)
 
 TARGET_LINK_LIBRARIES(
     lib_process_monitor
