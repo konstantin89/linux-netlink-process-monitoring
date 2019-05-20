@@ -6,14 +6,20 @@ set (CXX_FLAGS "-std=c++14 -Wall -Wextra -g")
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_FLAGS}")
 
+set(SOURCES_DIR "${PROJECT_SOURCE_DIR}/src")
+
+include_directories(
+    "${PROJECT_SOURCE_DIR}/include"
+)
+
 add_library(
     lib_process_monitor
-    ProcessMonitor.cpp
+    ${SOURCES_DIR}/ProcessMonitor.cpp
 )
 
 add_executable(
     monitor_example
-    main.cpp)
+    ${SOURCES_DIR}/main.cpp)
 
 TARGET_LINK_LIBRARIES(
     lib_process_monitor
