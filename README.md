@@ -33,5 +33,5 @@ Static library containig all process monitoring functionality. </br>
 ### monitor_example
 
 Executable that uses lib_process_monitor to log process events. </br>
-This executable register logger callback to the process events monitor</br>
+This executable registers logger callback to the process events monitor</br>
 and prints events to stdout.
