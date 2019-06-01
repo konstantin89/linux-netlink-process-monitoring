@@ -39,3 +39,4 @@ and prints events to stdout.
 ## TODOs
 
 * Callback context should be shared_ptr, and be released when callback is deleted.
+* Limit max number of messages in queue.
