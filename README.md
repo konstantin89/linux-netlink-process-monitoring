@@ -21,7 +21,6 @@ while starting from CMakeLists.txt directory:  </br>
 * cmake ..
 * make
 
-</br>
 
 
 ## Binaries
